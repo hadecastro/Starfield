@@ -1,12 +1,25 @@
 //your code here
+NormalParticle [] part;
 void setup()
 {
 	//your code here
 	size(500, 500);
+	background(0);
+	part = new NormalParticle[20];
+	for(int i = 0; i < part.length; i ++)
+	{
+		part[i] = new NormalParticle();
+	}
 }
 void draw()
 {
 	//your code here
+	background(0);
+	for(int i = 0; i < part.length; i++)
+	{
+		part[i].move();
+		part[i].show();		
+	}
 
 }
 class NormalParticle
@@ -16,9 +29,11 @@ class NormalParticle
 	double dX, dY, dSpeed, dTheta;
 	NormalParticle()
 	{
-		dX = 50;
-		dY = 50;
-		myColor = color(100, 100, 255);
+		dX = 250;
+		dY = 250;
+		dTheta = Math.random()*(2*Math.PI);
+		dSpeed = Math.random()*11;
+		myColor = color((int)(Math.random()*255)+100, (int)(Math.random()*255)+100, 255);
 	}
 
 	void move()
@@ -29,7 +44,8 @@ class NormalParticle
 
 	void show()
 	{
-		ellipse((float)dX, (float)dY, 50, 50);
+		fill(myColor);
+		ellipse((float)dX, (float)dY, 5, 5);
 	}
 }
 interface Particle
