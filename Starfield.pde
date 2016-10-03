@@ -10,8 +10,12 @@ void setup()
 	{
 		particles[i] = new NormalParticle();
 	}
-	particles[0] = new OddballParticle();
-	for(int i = 1; i < 5; i ++)
+	for(int i = 10; i < 20; i ++)
+	{
+		particles[i] = new OddballParticle();
+	}
+
+	for(int i = 20; i < 25; i ++)
 	{
 		particles[i] = new JumboParticle();		
 	}
@@ -26,8 +30,15 @@ void draw()
 		particles[i].move();
 		particles[i].show();		
 	}
-	particles[0].show();
-	particles[1].show();
+	for(int i = 10; i < 20; i ++)
+	{
+		particles[i].show();
+	}
+	for(int i = 20; i < 25; i ++)
+	{
+		particles[i].show();
+		particles[i].move();		
+	}
 }
 
 void mousePressed()
@@ -66,8 +77,8 @@ class NormalParticle implements Particle
 
 	public void middle()
 	{
-		dX = 250;
-		dY = 250;
+		dX = mouseX;
+		dY = mouseY;
 	}
 }
 interface Particle
@@ -86,6 +97,7 @@ class OddballParticle implements Particle//uses an interface
 	}
 	public void show()
 	{
+		noStroke();
 		fill(255);
 		ellipse(200, 200, 10, 10);
 	}
@@ -96,7 +108,10 @@ class OddballParticle implements Particle//uses an interface
 	}
 
 	public void middle()
-	{}
+	{
+		dX = (int)(Math.random()*300)+100;
+		dY = (int)(Math.random()*300)+100;
+	}
 }
 class JumboParticle extends NormalParticle//uses inheritance
 {
