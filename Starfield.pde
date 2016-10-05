@@ -5,16 +5,16 @@ void setup()
 	//your code here
 	size(800, 800);
 	background(0);
-	particles = new Particle[50];
-	for(int i = 0; i < 30; i ++)
+	particles = new Particle[300];
+	for(int i = 0; i < 250; i ++)
 	{
 		particles[i] = new NormalParticle();
 	}
-	for(int i = 30; i < 40; i ++)
+	for(int i = 250; i < 295; i ++)
 	{
 		particles[i] = new JumboParticle();		
 	}
-	for(int i = 40; i < 50; i++)
+	for(int i = 295; i < 300; i++)
 	{
 		particles[i] = new OddballParticle();
 	}
@@ -24,7 +24,7 @@ void draw()
 {
 	//your code here
 	background(0);
-	for(int i = 0; i < 50; i++)
+	for(int i = 0; i < particles.length; i++)
 	{
 		particles[i].move();
 		particles[i].show();		
@@ -42,7 +42,7 @@ void mousePressed()
 class NormalParticle implements Particle
 {
 	//your code here
-	int myColor;
+	int myColor, changeColor, cRed, cGreen, cBlue;
 	double dX, dY, dSpeed, dTheta;
 	NormalParticle()
 	{
@@ -50,7 +50,11 @@ class NormalParticle implements Particle
 		dY = 400;
 		dTheta = Math.random()*(2*Math.PI);
 		dSpeed = Math.random()*11;
+		changeColor = 0;
 		myColor = color((int)(Math.random()*255)+100, (int)(Math.random()*255)+100, (int)(Math.random()*255)+100);
+		cRed = color(255, (int)(Math.random()*255)+100, (int)(Math.random()*255)+100);
+		cGreen = color((int)(Math.random()*255)+100, 255, (int)(Math.random()*255)+100);
+		cBlue = color((int)(Math.random()*255)+100, (int)(Math.random()*255)+100, 255);
 	}
 
 	public void move()
@@ -62,6 +66,7 @@ class NormalParticle implements Particle
 	public void show()
 	{
 		fill(myColor);
+
 		ellipse((float)dX, (float)dY, 5, 5);
 	}
 
@@ -69,6 +74,23 @@ class NormalParticle implements Particle
 	{
 		dX = mouseX;
 		dY = mouseY;
+		changeColor ++;
+		if(changeColor == 1)
+		{
+			myColor = cRed;
+		}
+		if(changeColor == 2)
+		{
+			myColor = cGreen;
+		}
+		if(changeColor == 3)
+		{
+			myColor = cBlue;
+		}
+		if(changeColor > 3)
+		{
+			changeColor = 0;
+		}
 	}
 }
 interface Particle
@@ -86,7 +108,7 @@ class OddballParticle implements Particle//uses an interface
 		dX = (int)(Math.random()*700);
 		dX = (int)(Math.random()*700);
 		dTheta = Math.random()*(2*Math.PI);
-		dSpeed = Math.random()*15;
+		dSpeed = (Math.random()*15) + 5;
 	}
 	public void show()
 	{
